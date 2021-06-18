@@ -1,0 +1,34 @@
+<h1>
+    <%= @todo.category %>
+</h1>
+
+<table class="table my-5">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+      <th scope="col">Due date</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @same_category.each do |todo| %>
+      <tr>
+        <td><%= todo.title %></td>
+        <td><%= todo.description %></td>
+        <td><%= todo.status %></td>
+        <td><%= todo.due_date.strftime("%B %d, %Y") %></td>
+        <td><%= link_to 'Show', todo, :class => 'btn btn-outline-primary' %></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo), :class => 'btn btn-outline-secondary' %></td>
+        <td><%= link_to 'Delete', todo, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="row justify-content-md-center pt-5">
+    <%= link_to 'New Todo', new_todo_path, class: 'btn btn-primary col col-lg-2 my-3 mx-3' %>
+    <%= link_to 'Home', todos_path, class: 'btn btn-secondary col col-lg-2 my-3 mx-3' %>
+</div>

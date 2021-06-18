@@ -1,0 +1,54 @@
+<h1>All Todos</h1>
+
+<%= form_tag todos_path, method: :get, id: 'status_form', class: "d-flex align-items-center mt-3" do %>
+  <strong class="d-inline mr-auto">Include:</strong>
+
+  <% @all_statuses.each do |status| %>
+    <div class="form-check form-check-inline px-2">
+      <%= label_tag "statuses[#{status}]", status, class: 'form-check-label pr-2' %>
+      <%= check_box_tag "statuses[#{status}]", "1", @statuses_to_show.include?(status), class: 'form-check-input' %>
+    </div>
+  <% end %>
+
+  <%= submit_tag 'Refresh', id: 'status_submit', class: 'btn btn-secondary ml-auto' %>
+<% end %>
+
+<table class="table my-5">
+  <thead>
+    <tr>
+      <th scope="col" class="<%= 'bg-warning hilite' if @orderBy == 'title' %>">
+          <%= link_to 'Title', 
+              todos_path(orderBy: 'title', orderDir: @orderDir == 'desc' ? 'asc' : 'desc'), 
+              id: 'title_header'
+          %>
+      </th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+      <th scope="col" class="<%= 'bg-warning hilite' if @orderBy == 'due_date' %>">
+          <%= link_to 'Due date', 
+              todos_path(orderBy: 'due_date', orderDir: @orderDir == 'desc' ? 'asc' : 'desc'), 
+              id: 'due_date_header'
+          %>
+      </th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @todos.each do |todo| %>
+      <tr>
+        <td><%= todo.title %></td>
+        <td><%= todo.description %></td>
+        <td><%= todo.status %></td>
+        <td><%= todo.due_date.strftime("%B %d, %Y") %></td>
+        <td><%= link_to 'Show', todo, :class => 'btn btn-outline-primary' %></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo), :class => 'btn btn-outline-secondary' %></td>
+        <td><%= link_to 'Delete', todo, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="row justify-content-md-center pt-5">
+    <%= link_to 'New Todo', new_todo_path, class: 'btn btn-primary col col-lg-2 my-3 mx-3' %>
+</div>

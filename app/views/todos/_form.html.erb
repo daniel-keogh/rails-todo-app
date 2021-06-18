@@ -1,0 +1,39 @@
+<%= form_for(@todo) do |f| %>
+  <% if @todo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
+
+      <ul>
+      <% @todo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="field mb-4">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, :required => true, :class => 'form-control' %>
+    </div>
+    <div class="field mb-4">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, :class => 'form-control' %>
+    </div>
+    <div class="field mb-4">
+      <%= f.label :status %><br>
+      <%= f.select :status, ['Due', 'In Progress', 'Done'], {}, { :class => 'form-control' } %>
+    </div>
+    <div class="field mb-4">
+      <%= f.label :category %><br>
+      <%= f.text_field :category, :class => 'form-control' %>
+    </div>
+    <div class="field mb-4">
+      <%= f.label :due_date, 'Due Date' %><br>
+      <%= f.date_select :due_date, {}, :class => 'form-control d-inline col-2' %>
+    </div>
+    <div class="actions mt-5">
+      <%= submit_tag 'Save Changes', :class => 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>

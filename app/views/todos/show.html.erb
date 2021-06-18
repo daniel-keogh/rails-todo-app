@@ -1,0 +1,30 @@
+<p class="my-5">
+  <strong class="pr-1">Title:</strong>
+  <%= @todo.title %>
+</p>
+
+<p class="my-5">
+  <strong class="pr-1">Description:</strong>
+  <%= @todo.description %>
+</p>
+
+<p class="my-5">
+  <strong class="pr-1">Status:</strong>
+  <%= @todo.status %>
+</p>
+
+<p class="my-5">
+  <strong class="pr-1">Category:</strong>
+  <%= @todo.category %>
+</p>
+
+<p class="my-5">
+  <strong class="pr-1">Due date:</strong>
+  <%= @todo.due_date.strftime("%B %d, %Y") %>
+</p>
+
+<div class="row justify-content-md-center">
+    <%= link_to 'More in this Category', category_path(@todo), class: 'btn btn-info col col-lg-2 my-3 mx-3' %>
+    <%= link_to 'Edit', edit_todo_path(@todo), class: 'btn btn-primary col col-lg-2 my-3 mx-3' %>
+    <%= link_to 'Back', todos_path, class: 'btn btn-secondary col col-lg-2 my-3 mx-3' %>
+</div>
